@@ -1,6 +1,7 @@
 package com.netizen.storeserver;
 
 import com.netizen.storeserver.model.Product;
+import com.netizen.storeserver.repo.StoreRepo;
 import com.netizen.storeserver.service.StoreService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

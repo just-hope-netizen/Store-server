@@ -23,7 +23,7 @@ public class StoreRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(Product product){
+    public void addProduct(Product product){
         String query ="INSERT INTO product (productId, name, category, imageUrl, inStock, price) VALUES (?,?,?,?,?,?)";
         int rows = jdbcTemplate.update(query, product.getProductId(), product.getName(), product.getCategory(), product.getImageUrl(), product.isInStock(), product.getPrice());
         System.out.println(rows);
@@ -48,8 +48,8 @@ public class StoreRepo {
     }
 
     public List<Product> findAllByName(String q) {
-        String sql= "SELECT * FROM product WHERE name LIKE %";
-
+        String sql= "SELECT * FROM product WHERE name Like '%" + q +"%' OR category   lIKE '%" + q +"%'";
+        System.out.println(sql);
         RowMapper<Product> rowMapper = (rs, rowNum) -> {
             Product product = new Product();
             product.setProductId(rs.getInt("productId"));
@@ -60,7 +60,6 @@ public class StoreRepo {
             product.setPrice(rs.getInt("price"));
             return product;
         };
-        System.out.println(rowMapper);
         return jdbcTemplate.query(sql, rowMapper);
-    };
+    }
 }
